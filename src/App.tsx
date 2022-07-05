@@ -1,11 +1,24 @@
-import { useState } from "react";
+import { useQuery } from "@apollo/client";
+import { useEffect, useState } from "react";
+import { client, GET_LESSONS_QUERY } from "./lib/apollo";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const { data } = useQuery<{ lessons: Lesson[]}>(GET_LESSONS_QUERY);
 
+  console.log(data);
+
+  interface Lesson {
+    id: string,
+    title: string
+  }
+  
   return (
     <div className="App">
-      <p className="p-2 text-5xl text-violet-500 font-bold">oi</p>
+      <ul>
+        {data?.lessons.map(lesson => (
+          <li key={lesson.id}>{lesson.title}</li>
+        ))}
+      </ul>
     </div>
   );
 }
