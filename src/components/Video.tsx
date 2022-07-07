@@ -2,10 +2,7 @@ import React from "react";
 
 const Video = () => {
   return (
-    <>
-      <div>sidebar</div>
-      <div>sidebar</div>
-    </>
+    <div className="flex-1">Vídeo</div>
   );
 };
 
