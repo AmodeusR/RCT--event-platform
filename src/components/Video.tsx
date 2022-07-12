@@ -1,40 +1,77 @@
 import { CaretRight, DiscordLogo, FileArrowDown, Lightning } from "phosphor-react";
+import { DefaultUi, Player, Youtube } from "@vime/react";
 
-const Video = () => {
+import "@vime/core/themes/default.css";
+import { useQuery } from "@apollo/client";
+import { GET_LESSON_BY_SLUG } from "../lib/apollo";
+
+interface VideoProps {
+  lessonSlug: string;
+}
+
+interface VideoQueryResponse {
+  lesson: {
+    title: string;
+    videoId: string;
+    description: string;
+    teacher: {
+      bio: string;
+      avatarURL: string;
+      name: string;
+    };
+  }
+}
+
+const Video = ({ lessonSlug }:VideoProps) => {
+  const { data } = 
+  useQuery<VideoQueryResponse>(GET_LESSON_BY_SLUG, {
+    variables: {
+      slug: lessonSlug
+    }
+  });
+
+  
+  if (!data) {
+    return (
+    <div className="flex-1">
+      Carregando...
+    </div>
+    );
+  }
+  
   return (
     <section className="flex-1">
       <div className="bg-black w-full h-1/2 flex justify-center">
-        <div className="h-full max-h-[60vh] max-w-[1100px] bg-slate-900 aspect-video"></div>
+        <div className="h-full max-h-[60vh] max-w-[1100px] bg-slate-900 aspect-video">
+          <Player>
+            <Youtube videoId={data.lesson.videoId} />
+            <DefaultUi />
+          </Player>
+        </div>
       </div>
 
       <div className="p-8 max-w-[1100px] mx-auto">
         <section className="flex items-start gap-16">
           <div className="flex-1">
             <h1 className="text-white text-2xl font-bold mb-4 flex-1">
-              Aula 01 - Aprendendo lálálá
+              {data.lesson.title}
             </h1>
             <p className="text-gray-200 leading-relaxed">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Incidunt
-              cum ratione iure, nam explicabo, voluptatum aspernatur neque eius
-              at magni officia nulla suscipit beatae repudiandae. Lorem ipsum
-              dolor sit amet consectetur adipisicing elit. Ab dolorum quos
-              culpa, laborum incidunt, ex beatae modi omnis voluptate cumque
-              consequatur sunt laboriosam nemo? Pariatur aspernatur hic nobis
-              nostrum porro!
+              {data.lesson.description}
             </p>
             <div className=" flex items-center gap-4 mt-6">
               <img
                 className="h-16 w-16 rounded-full border-2 border-blue-500"
-                src="https://github.com/amodeusr.png"
+                src={data.lesson.teacher.avatarURL}
                 alt="foto do professor"
               />
 
               <div className="leading-relaxed">
                 <strong className="font-bold text-2xl block">
-                  Ricardo Magalhães
+                  {data.lesson.teacher.name}
                 </strong>
                 <span className="text-gray-200 text-sm">
-                  Sith | Estrela da Morte
+                  {data.lesson.teacher.bio}
                 </span>
               </div>
             </div>
