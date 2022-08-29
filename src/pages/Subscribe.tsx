@@ -24,7 +24,7 @@ const Subscribe = () => {
   }
 
   return (
-    <div className="min-h-screen bg-blur bg-cover bg-no-repeat flex flex-col items-center justify-end">
+    <div className="min-h-screen bg-blur-no-tcss bg-cover bg-no-repeat flex flex-col items-center justify-end">
       <div className="flex w-full max-w-[1100px] justify-between">
         <div className="max-w-xl">
           <Logo />

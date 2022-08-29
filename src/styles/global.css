@@ -16,5 +16,5 @@ body {
 }
 
 .bg-blur-no-tcss {
-  background-image: url("./src/assets/blur-background.png");
+  background-image: url("/assets/blur-background.png");
   }
