@@ -14,3 +14,7 @@ body {
 .input {
   @apply bg-gray-900 p-4 text-gray-300 rounded text-sm
 }
+
+.bg-blur-no-tcss {
+  background-image: url("./src/assets/blur-background.png");
+  }

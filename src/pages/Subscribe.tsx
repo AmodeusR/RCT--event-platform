@@ -68,7 +68,7 @@ const Subscribe = () => {
           </button>
         </form>
       </div>
-      <img src="./src/assets/code-mockup.png" alt="" />
+      <img src="/assets/code-mockup.png" alt="" />
     </div>
   );
 };
